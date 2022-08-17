@@ -8,6 +8,51 @@ Documentation can be found on the project `wiki <https://github.com/robotframewo
 
 The original jrobotremoteserver can be found on `Google Code <http://code.google.com/p/jrobotremoteserver/>`_.
 
+Usage
+------
+
+1. Add your keyword libraries to the .jar file
+
+ MWE
+
+.. code:: java
+
+    import org.robotframework.javalib.annotation.ArgumentNames;
+    import org.robotframework.javalib.annotation.RobotKeyword;
+    import org.robotframework.javalib.annotation.RobotKeywords;
+
+    import javax.swing.JOptionPane;
+
+    @RobotKeywords
+    public class MyKeywords {
+        @RobotKeyword("Say Hello")
+        @ArgumentNames({"name"})
+        public void sayHello(String name) {
+            JOptionPane.showMessageDialog(null, "Hello " + name);
+        }
+    }
+
+2. Start the keyword server
+
+.. code:: bash
+
+    java -jar jrobotremoteserver-4.1.1-jar-with-dependencies.jar -p 8270 -l MyKeywords
+
+
+3. Use the keywords in Robot Framework
+
+  MWE
+
+.. code:: robotframework
+
+    *** Settings ***
+    Library    Remote    http://127.0.0.1:8270/
+
+    *** Test Cases ***
+    First test
+        Say Hello    Robot Framework
+
+
 Importing
 ---------
 
