@@ -230,7 +230,13 @@ public class RemoteServer {
      */
     public void start() throws Exception {
         log.info("Robot Framework remote server starting");
-        server.start();
+        try {
+            server.start();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.exit(1);
+        }
+        
         log.info(String.format("Robot Framework remote server started on port %d.", serverPort));
     }
 
